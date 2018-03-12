@@ -13,6 +13,7 @@ pandas = "*"
 [dev-packages]
 
 "flake8" = "*"
+ipython = "*"
 
 
 [requires]
