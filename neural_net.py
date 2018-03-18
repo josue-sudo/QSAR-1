@@ -21,7 +21,7 @@ def r2(x, y):
     return num / denom
 
 
-def load_model(input_shape):
+def generate_model(input_shape):
     model = models.Sequential()
 
     model.add(Dense(4000, activation='relu', input_shape=input_shape,
