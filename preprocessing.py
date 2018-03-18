@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 DATASETS = ['3A4', 'CB1', 'DPP4', 'HIVINT', 'HIVPROT', 'LOGD', 'METAB', 'NK1',
             'OX1', 'OX2', 'PGP', 'PPB', 'RAT_F', 'TDI', 'THROMBIN']
+DATADIR = "/data/"
 INDEX_LABEL = "MOLECULE"
 TRAIN_FILE_SUFFIX = "_test_disguised.csv"
 TEST_FILE_SUFFIX = "_training_disguised.csv"
@@ -57,15 +58,13 @@ class Preprocessor(object):
 
 
 class FileHelper(object):
-    def __init__(self, dataset, data_dir):
+    def __init__(self, dataset):
         self.dataset = dataset
-        self.data_dir = "{0}/".format(data_dir) if not \
-            data_dir.endswith("/") else data_dir
-        self.test_file = "{0}{1}{2}".format(self.data_dir, dataset,
+        self.test_file = "{0}{1}{2}".format(DATADIR, dataset,
                                             TEST_FILE_SUFFIX)
-        self.train_file = "{0}{1}{2}".format(self.data_dir, dataset,
+        self.train_file = "{0}{1}{2}".format(DATADIR, dataset,
                                              TRAIN_FILE_SUFFIX)
-        self.write_destination = "{0}preprocessed/".format(self.data_dir)
+        self.write_destination = "{0}preprocessed/".format(DATADIR)
 
     def read(self):
         try:
@@ -91,19 +90,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Preprocess QSAR data')
     parser.add_argument('--dataset', help='Enter one of available datasets: {}'
                         .format(", ".join(DATASETS)), required=True)
-    parser.add_argument('--data_dir', help='Specify dir that contains '
-                        'dataset files', required=True)
 
     args = parser.parse_args()
     dataset = args.dataset
-    data_dir = args.data_dir
     if dataset not in DATASETS:
         raise ValueError("The specified dataset is not valid. The following "
                          "are valid values: {0}".format(", ".join(DATASETS)))
 
     # Read data
     logger.info("Reading in {0} dataset".format(dataset))
-    file_helper = FileHelper(dataset, data_dir)
+    file_helper = FileHelper(dataset)
     train_df, test_df = file_helper.read()
     logger.info("Finished reading in {0} dataset".format(dataset))
 
