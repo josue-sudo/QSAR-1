@@ -10,13 +10,14 @@ def r2(x, y):
     x = K.batch_flatten(x)
     y = K.batch_flatten(y)
 
-    avx = K.mean(x)
-    avy = K.mean(y)
+    mean_x = K.mean(x)
+    mean_y = K.mean(y)
 
-    num = K.sum((x-avx) * (y-avy))
-    num = num * num
+    num = K.sum((x - mean_x) * (y - mean_y))
+    num *= num
 
-    denom = K.sum((x-avx)*(x-avx)) * K.sum((y-avy)*(y-avy))
+    denom = K.sum((x - mean_x) * (x - mean_x)) * \
+        K.sum((y - mean_y) * (y - mean_y))
 
     return num / denom
 
