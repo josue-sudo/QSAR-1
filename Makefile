@@ -6,6 +6,7 @@ BATCH_SIZE=64
 EPOCHS=2
 
 build:
+				pipenv install
 				docker build -t qras -f Dockerfile .
 
 preprocess:
@@ -16,3 +17,9 @@ train:
 
 evaluate:
 				docker run -it --rm -v $(SRC):/src -v $(DATA):/data qras python3 evaluate.py --dataset=$(DATASET)
+
+lint:
+				flake8
+
+test:
+				pytest tests.py

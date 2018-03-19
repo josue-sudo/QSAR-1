@@ -13,6 +13,7 @@ name = "pypi"
 
 "flake8" = "*"
 ipython = "*"
+pytest = "*"
 
 
 [requires]
