@@ -56,6 +56,8 @@ Specify the dataset of interest and its location. For example:
 make evaluate DATASET=NK1 DATA=~/Documents/qsar/
 ```
 
+The metric used to evaluate the model is the correlation coefficient (R2). According to Ma et al., a model with coefficient even as low as 0.30 is still useful since QSAR is used to prioritize a large number of molecular compounds so the activity prediction on a single molecular basis is less important. The paper recommends that the number of epochs should be set as high as possible (within hardware limits) to increase the R2. The trade off is time and resources vs. a higher R2.
+
 ### Testing
 
 Pytest
