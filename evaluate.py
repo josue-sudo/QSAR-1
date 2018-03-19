@@ -30,7 +30,7 @@ if __name__ == "__main__":
     split = descriptor_activation_split(test_df)
 
     logger.info("Loading {0} model".format(dataset))
-    model = load_model("./weights/{0}.h5".format(dataset),
+    model = load_model('{0}{1}.h5'.format('/data/', dataset),
                        custom_objects={'r2': r2})
 
     logger.info("Evaluating {0} model".format(dataset))
